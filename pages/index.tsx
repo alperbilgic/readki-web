@@ -1,5 +1,5 @@
 import {Box, Button, Divider, Slider, Typography} from "@mui/material";
-import {Stack} from "@mui/system";
+import {Stack, useMediaQuery, useTheme} from "@mui/system";
 import * as React from "react";
 import {FeatureCard} from "@/components/home/featureCard";
 import BookLand from "@/assets/home/bookLand";
@@ -9,8 +9,14 @@ import Carousel from "react-material-ui-carousel";
 import {Comment} from "@/components/home/comment";
 import {useEffect, useState} from "react";
 import {BlogCard} from "@/components/blog/BlogCard";
+import useTranslation from "next-translate/useTranslation";
+import {useRouter} from "next/router";
 
 export default function Home() {
+  const {t} = useTranslation('common');
+  const router = useRouter();
+  const theme = useTheme();
+  const mdOrBigger = useMediaQuery(theme.breakpoints.up('md'))
   const [blogs, setBlogs] = useState([]);
 
   const fetchBlogs = async () => {
@@ -29,15 +35,16 @@ export default function Home() {
   return (
     <Box sx={{width: "100%"}}>
       <Stack direction={{md: "row", xs: "column-reverse"}} alignItems={"center"} justifyContent={"space-around"}
-             sx={{backgroundColor: "#F74E53", paddingY: "50px", paddingTop: "100px", paddingX: "12%"}}>
+             sx={{backgroundColor: "#F74E53", paddingY: {md: "50px", xs: "10px"}, paddingTop: "100px", paddingX: "12%"}}>
         <Stack direction={"column"} sx={{width: {md: "50%", xs: "100%"}}} gap={"35px"}>
-          <Typography color={"white"} fontSize={{md: "55px", xs: "30px"}} fontWeight={"500"} maxWidth={"450px"}>Educative Games and
-            E-Books</Typography>
-          <Typography color={"white"} fontSize={"20px"} fontWeight={"500"} maxWidth={"500px"}>Readki, okul öncesi
-            çocuklar için eğitici ve eğlenceli e-kitap uygulamasıdır. Çocukların motor becerilerini, sosyal ve duygusal
-            yeterliliklerini, dil ve bilişsel gelişimlerini teşvik eder.</Typography>
+          <Typography color={"white"} fontSize={{md: "55px", xs: "30px"}} fontWeight={"500"}
+                      maxWidth={"500px"}>{t("Educative Games and E-Books")}</Typography>
+          <Typography color={"white"} fontSize={"20px"} fontWeight={"500"}
+                      maxWidth={"500px"}>{t("Readki Description")}</Typography>
           <Stack direction={"row"} justifyContent={"flex-start"} alignItems={"center"} gap={"20px"}>
-            <Button sx={{
+            <Button
+              onClick={() => window.open("https://onelink.to/dqqvdp", "_blank")}
+              sx={{
               borderRadius: "30px",
               color: "black",
               backgroundColor: "white",
@@ -45,8 +52,8 @@ export default function Home() {
               fontSize: "12px",
               padding: "15px",
               paddingX: "20px"
-            }}>Download</Button>
-            <Button sx={{color: "white", fontWeight: "600", fontSize: "12px"}}>Try for Free</Button>
+            }}>{t("Download")}</Button>
+            <Button onClick={() => window.open("https://onelink.to/dqqvdp", "_blank")} sx={{color: "white", fontWeight: "600", fontSize: "12px"}}>{t("Try For Free")}</Button>
           </Stack>
         </Stack>
         <Box width={{md: "50%", xs: "100%"}}>
@@ -58,46 +65,77 @@ export default function Home() {
         </Box>
       </Stack>
       <Stack direction={"column"} justifyContent={"center"} alignItems={"center"} sx={{paddingY: "50px"}} gap={"50px"}>
-        <Typography fontSize={"35px"} fontWeight={"600"}>Unique Features for Child Development</Typography>
-        <Stack direction={"row"} gap={"20px"}>
+        <Typography fontSize={"35px"} fontWeight={"600"} textAlign={"center"}>{t("Unique Features for Child Development")}</Typography>
+        <Stack direction={{md: "row", xs: "column"}} gap={"20px"}>
           <FeatureCard containerSx={{width: "330px", padding: "10px", borderRadius: "11px"}}
                        iconItem={<BookLand size={144}/>} iconWrapperBackgroundColor={"#885EFE"}
-                       title={"Book Land For Kids"} description={""}/>
+                       title={t("Book Land For Kids")} description={""}/>
           <FeatureCard containerSx={{width: "330px", padding: "10px", borderRadius: "11px"}}
                        iconItem={<GameAndEducationApp size={144}/>} iconWrapperBackgroundColor={"#885EFE"}
-                       title={"Gaming And Education Application"} description={""}/>
+                       title={t("Gaming And Education Application")} description={""}/>
           <FeatureCard containerSx={{width: "330px", padding: "10px", borderRadius: "11px"}}
                        iconItem={<Meditation size={144}/>} iconWrapperBackgroundColor={"#885EFE"}
-                       title={"Meditation for Little Minds"} description={""}/>
+                       title={t("Meditation for Little Minds")} description={""}/>
         </Stack>
       </Stack>
       <Stack direction={"column"} sx={{backgroundColor: "#F74E53", paddingY: "30px"}} alignItems={"center"}
              gap={"10px"}>
-        <Typography fontSize={"14px"} fontWeight={"500"} color={"white"}>Would you like to see the content?</Typography>
-        <Typography fontSize={"35px"} fontWeight={"600"} color={"white"}>Get to Know Our Application!</Typography>
-        <Stack direction={"row"} gap={"40px"} marginTop={"30px"}>
-          <img
-            src={"https://readki-public.s3.eu-central-1.amazonaws.com/web/englishSS1.webp"}
-            alt={""}
-            style={{width: "200px", borderRadius: "30px", border: "1px solid white"}}
-          />
-          <img
-            src={"https://readki-public.s3.eu-central-1.amazonaws.com/web/englishSS2.webp"}
-            alt={""}
-            style={{width: "200px", borderRadius: "30px", border: "1px solid white"}}
-          />
-          <img
-            src={"https://readki-public.s3.eu-central-1.amazonaws.com/web/englishSS3.webp"}
-            alt={""}
-            style={{width: "200px", borderRadius: "30px", border: "1px solid white"}}
-          />
-        </Stack>
+        <Typography fontSize={"14px"} fontWeight={"500"}
+                    color={"white"}>{t("Would you like to see the content?")}</Typography>
+        <Typography fontSize={"35px"} fontWeight={"600"} textAlign={"center"}
+                    color={"white"}>{t("Get to Know Our Application!")}</Typography>
+        {mdOrBigger ? (
+          <Stack direction={"row"} gap={"40px"} marginTop={"30px"}>
+            <img
+              src={"https://readki-public.s3.eu-central-1.amazonaws.com/web/englishSS1.webp"}
+              alt={""}
+              style={{width: "200px", borderRadius: "30px", border: "1px solid white"}}
+            />
+            <img
+              src={"https://readki-public.s3.eu-central-1.amazonaws.com/web/englishSS2.webp"}
+              alt={""}
+              style={{width: "200px", borderRadius: "30px", border: "1px solid white"}}
+            />
+            <img
+              src={"https://readki-public.s3.eu-central-1.amazonaws.com/web/englishSS3.webp"}
+              alt={""}
+              style={{width: "200px", borderRadius: "30px", border: "1px solid white"}}
+            />
+          </Stack>
+        ) : (
+          <Carousel sx={{width: "200px", alignItems: "center"}}>
+            <img
+              src={"https://readki-public.s3.eu-central-1.amazonaws.com/web/englishSS1.webp"}
+              alt={""}
+              style={{width: "200px", borderRadius: "30px", border: "1px solid white"}}
+            />
+            <img
+              src={"https://readki-public.s3.eu-central-1.amazonaws.com/web/englishSS2.webp"}
+              alt={""}
+              style={{width: "200px", borderRadius: "30px", border: "1px solid white"}}
+            />
+            <img
+              src={"https://readki-public.s3.eu-central-1.amazonaws.com/web/englishSS3.webp"}
+              alt={""}
+              style={{width: "200px", borderRadius: "30px", border: "1px solid white"}}
+            />
+          </Carousel>
+        )}
       </Stack>
       <Stack direction={"row"} sx={{paddingY: "50px", paddingTop: "100px", paddingX: "12%"}} gap={"20px"}>
-        <Box width={"50%"}>Some photo</Box>
-        <Stack width={"50%"} gap={"10px"}>
-          <Typography color={"#F74E53"} fontSize={"20px"} fontWeight={"500"}>Aileler bizi çok seviyor!</Typography>
-          <Typography fontSize={"35px"} fontWeight={"600"}>Kullanıcı yorumları</Typography>
+        {mdOrBigger && <Box width={"50%"}>
+          <Stack direction={"row"} gap={"20px"}>
+            <img src={"https://readki-public.s3.eu-central-1.amazonaws.com/web/gamesPageScreenShot.webp"} alt={""}
+                 style={{width: "24%", objectFit: "contain"}}/>
+            <img src={"https://readki-public.s3.eu-central-1.amazonaws.com/web/mainPageScreenShot.webp"} alt={""}
+                 style={{width: "24%", objectFit: "contain", marginTop: "20%"}}/>
+            <img src={"https://readki-public.s3.eu-central-1.amazonaws.com/web/readingPageScreenShot.webp"} alt={""}
+                 style={{width: "24%", objectFit: "contain"}}/>
+          </Stack>
+        </Box>}
+        <Stack width={{md: "50%", xs: "100%"}} gap={"10px"}>
+          <Typography color={"#F74E53"} fontSize={"20px"} fontWeight={"500"}>{t("Families Love Us!")}</Typography>
+          <Typography fontSize={"35px"} fontWeight={"600"}>{t("User Comments")}</Typography>
           <Carousel>
             <Comment
               comment={"Readki ile çocuklarım çok güzel bir kitap okuma alışkanlığı edindi! Hem hikayeler ilgi çekici, hem de oyunlar eğlenceli ve eğitici. Çocuklarımızın hem kelime dağarcıklarını hem de hayal güçlerini geliştirmelerine yardımcı oluyor. Herkese kesinlikle tavsiye ederim!"}
@@ -116,12 +154,11 @@ export default function Home() {
       </Stack>
       <Stack direction={"row"} sx={{backgroundColor: "#F74E53", paddingY: "50px", paddingTop: "100px", paddingX: "12%"}}
              gap={"20px"} alignItems={"center"}>
-        <Stack width={"50%"} gap={"30px"} paddingX={"20px"}>
-          <Typography color={"white"} fontSize={"35px"} fontWeight={"600"}>Readki'yi Hemen İndir, Ücretsiz Denemeye
-            Başla!</Typography>
-          <Typography color={"white"} fontSize={"20px"} fontWeight={"500"}>Uygun paketlerden faydalanmak, birbirinden
-            eğlenceli kitap ve oyunlarımızı denemek için hemen indirip uygulamayı kullanmaya
-            başlayabilirsiniz.</Typography>
+        <Stack width={{md: "50%", xs: "100%"}} gap={"30px"} paddingX={"20px"}>
+          <Typography color={"white"} fontSize={"35px"}
+                      fontWeight={"600"}>{t("Download And Use Action Call")}</Typography>
+          <Typography color={"white"} fontSize={"20px"}
+                      fontWeight={"500"}>{t("Download Action Call Details")}</Typography>
           <Stack direction={"row"} justifyContent={"flex-start"} alignItems={"center"} gap={"20px"}>
             <Button sx={{
               border: "1px solid",
@@ -142,36 +179,75 @@ export default function Home() {
               paddingX: "15px"
             }}>Google Play Store</Button>
           </Stack>
-          <Stack direction={"row"} justifyContent={"space-around"}>
+          <Stack width={"100%"} direction={"row"} justifyContent={"space-around"} gap={{md: "20px", xs: "12px"}}>
             <Stack>
-              <Typography color={"white"} fontSize={"35px"} fontWeight={"600"}>10000+</Typography>
-              <Typography color={"white"} fontSize={"20px"} fontWeight={"500"}>İndirme</Typography>
+              <Typography color={"white"} fontSize={{md: "35px", xs: "25px"}} fontWeight={"600"}>10000+</Typography>
+              <Typography color={"white"} fontSize={{md: "20px", xs: "15px"}} fontWeight={"500"}>İndirme</Typography>
             </Stack>
             <Divider orientation="vertical"></Divider>
             <Stack>
-              <Typography color={"white"} fontSize={"35px"} fontWeight={"600"}>2000+</Typography>
-              <Typography color={"white"} fontSize={"20px"} fontWeight={"500"}>Aktif Kullanıcı</Typography>
+              <Typography color={"white"} fontSize={{md: "35px", xs: "25px"}} fontWeight={"600"}>2000+</Typography>
+              <Typography color={"white"} fontSize={{md: "20px", xs: "15px"}} fontWeight={"500"}>Aktif Kullanıcı</Typography>
             </Stack>
             <Divider orientation="vertical"></Divider>
             <Stack>
-              <Typography color={"white"} fontSize={"35px"} fontWeight={"600"}>200+</Typography>
-              <Typography color={"white"} fontSize={"20px"} fontWeight={"500"}>Uygulama Yorumu</Typography>
+              <Typography color={"white"} fontSize={{md: "35px", xs: "25px"}} fontWeight={"600"}>200+</Typography>
+              <Typography color={"white"} fontSize={{md: "20px", xs: "15px"}} fontWeight={"500"}>Uygulama Yorumu</Typography>
             </Stack>
           </Stack>
         </Stack>
-        <Box width={{md: "50%"}}>
-          <img src={"https://readki-public.s3.eu-central-1.amazonaws.com/web/mockup1.webp"} alt={""} style={{width: "100%", height: "100%", objectFit: "contain"}}/>
-        </Box>
+        {mdOrBigger && <Box width={{md: "50%"}}>
+          <img src={"https://readki-public.s3.eu-central-1.amazonaws.com/web/mockup1.webp"} alt={""}
+               style={{width: "100%", height: "100%", objectFit: "contain"}}/>
+        </Box>}
       </Stack>
-      <Stack alignItems={"center"} sx={{paddingY: "50px"}} gap={"10px"}>
-        <Typography color={"#F74E53"} fontSize={"20px"} fontWeight={"500"}>Çocuğunuz Readki'de vakit geçirirken sizi de
-          unutmadık!</Typography>
-        <Typography fontSize={"35px"} fontWeight={"600"} marginBottom={"10px"}>Son Yazılarımız</Typography>
-        <Stack direction={"row"} gap={"20px"}>
+      <Stack alignItems={"center"} sx={{paddingY: "50px"}} gap={"10px"} paddingX={"12%"}>
+        <Typography color={"#F74E53"} fontSize={"20px"} fontWeight={"500"}>{t("Blogs Section Title")}</Typography>
+        <Stack direction={"row"} position={"relative"} width={"100%"} justifyContent={"center"}>
+          <Typography fontSize={"35px"} fontWeight={"600"} marginBottom={"10px"}>{t("Latest Blogs")}</Typography>
+          {mdOrBigger && <Button
+            sx={{
+              position: "absolute",
+              right: "0",
+              backgroundColor: "#F74E53",
+              color: "white",
+              border: "1px solid",
+              borderColor: "white",
+              padding: "10px",
+              paddingX: "15px",
+              borderRadius: "30px"
+            }}
+            // navigate to blog page
+            onClick={() => router.push("/blog")}
+          >{t("See All")}</Button>}
+        </Stack>
+        {mdOrBigger ? <Stack direction={"row"} gap={"20px"}>
           {blogs.map((blog: any) => (
             <BlogCard blogInfo={blog}/>
           ))}
-        </Stack>
+        </Stack> : (
+          <Stack sx={{width: "100%"}} gap={"10px"}>
+            <Carousel sx={{width: "100%"}}>
+              {blogs.map((blog: any) => (
+                <BlogCard blogInfo={blog}/>
+              ))}
+            </Carousel>
+            <Button
+              sx={{
+                right: "0",
+                backgroundColor: "#F74E53",
+                color: "white",
+                border: "1px solid",
+                borderColor: "white",
+                padding: "10px",
+                paddingX: "15px",
+                borderRadius: "30px"
+              }}
+              // navigate to blog page
+              onClick={() => router.push("/blog")}
+            >{t("See All")}</Button>
+          </Stack>
+        )}
       </Stack>
     </Box>
   )

@@ -1,5 +1,7 @@
-const { i18n } = require('./next-i18next.config')
+const nextTranslate = require('next-translate-plugin')
 
-module.exports = {
-  i18n,
-}
+module.exports = nextTranslate({
+  webpack: (config, { isServer, webpack }) => {
+    return config;
+  }
+})

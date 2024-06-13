@@ -143,11 +143,11 @@ export default function Home() {
               stars={5}/>
             <Comment
               comment={"Yoğun iş temposu arasında çocuklarımla kaliteli zaman geçirmek için harika bir çözüm oldu. Hem kitap okuyup hem de oyunlar oynayarak hem eğleniyorlar hem de öğreniyorlar. Uygulama kullanımı çok kolay ve içerikler çok kaliteli. Her kitap için pedagog yorumuna ulaşabiliyorsunuz."}
-              image={"https://readki-public.s3.eu-central-1.amazonaws.com/web/englishSS3.webp"} name={"İrem B."}
+              image={"https://readki-public.s3.eu-central-1.amazonaws.com/web/englishSS3.webp"} name={"Derin Y."}
               stars={5}/>
             <Comment
               comment={"Uygulama sayesinde çocuğumun kitaplara ve eğitime olan ilgisini artırmayı başardım. Uygulama, çocuğumun kendi başına keşfetmesi ve öğrenmesi için güvenli bir ortam sunuyor. Hikayeler ve oyunlar çok çeşitli ve her zaman yenileri ekleniyor. Çocuğumla birlikte keyifli vakit geçirmenin yanı sıra onun gelişimini de takip edebiliyorum. Readki'ye çok teşekkürler..."}
-              image={"https://readki-public.s3.eu-central-1.amazonaws.com/web/englishSS3.webp"} name={"İrem B."}
+              image={"https://readki-public.s3.eu-central-1.amazonaws.com/web/englishSS3.webp"} name={"Leyla A."}
               stars={5}/>
           </Carousel>
         </Stack>
